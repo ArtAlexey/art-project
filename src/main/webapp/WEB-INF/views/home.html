@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{~/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/static/css/myStyle.css}"/>
+</head>
+<body>
+
+<div th:replace="fragments/menu :: header"></div>
+<p class="text-justify">Добрый день! Этот сайт был создан для отработки Spring. На сайте можно зарегистрироваться и попробовать его работу. Это конвертер валют. Если Вы не зарегистрируетесь, то результаты поисков не будут сохранены.</p>
+<h2 align="center">Конвертер валют</h2>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Цифровой код</th>
+        <th scope="col">Символьный код</th>
+        <th scope="col">Номинал</th>
+        <th scope="col">Название</th>
+        <th scope="col">Значение</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="currency : ${currencies}">
+        <td th:text="${currency.numcode}"></td>
+        <td th:text="${currency.charCode}"></td>
+        <td th:text="${currency.nominal}"></td>
+        <td th:text="${currency.name}"></td>
+        <td th:text="${currency.value}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script type="text/javascript" th:src="@{~/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

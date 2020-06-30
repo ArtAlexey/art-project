@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Converter</title>
+    <link rel="stylesheet" th:href="@{~/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/static/css/myStyle.css}"/>
+</head>
+<body>
+<div th:replace="fragments/menu :: header"></div>
+<div class="alert alert-danger" role="alert" th:if="${param.confirmedError != null}">
+    Выберете валюту!
+</div>
+<form action="/converter/converted" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="currencyIn">Исходная валюта</label>
+        </div>
+        <select class="custom-select" id="currencyIn" name="currencyIn">
+            <option value="0">Выберете...</option>
+            <option th:each="currencie : ${currencies}"
+                    th:value="${currencie.id}"
+                    th:selected="${currencie.id} == ${numberOne}"
+                    th:text="${currencie.name}"></option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="valueIn">Введите сумму</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="valueIn" th:value="${valueIn}">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="currencyIn">Целевая валюта</label>
+        </div>
+        <select class="custom-select" id="currencyOut" name="currencyOut">
+            <option value="0">Выберете...</option>
+            <option th:each="currencie : ${currencies}"
+                    th:value="${currencie.id}"
+                    th:selected="${currencie.id} == ${numberTwo}"
+                    th:text="${currencie.name}"></option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="valueOut">Результат</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" th:value="${result}" readonly>
+    </div>
+    <button type="submit" class="btn btn-secondary btn-lg btn-block">Рассчитать</button>
+</form>
+
+
+<script type="text/javascript" th:src="@{~/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

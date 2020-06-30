@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" th:href="@{~/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/static/css/myStyle.css}"/>
+</head>
+<body>
+<div th:replace="fragments/menu::header"></div>
+<h1>Регистация</h1>
+<div class="alert alert-danger" role="alert" th:if="${param.confirmedError != null}">
+    Логины не совпадают!
+</div>
+<div class="alert alert-danger" role="alert" th:if="${param.confirmedSave != null}">
+    Пользователь с таким логином уже есть!
+</div>
+<form action="/registration/save" method="post">
+    <div class="form-group">
+        <label for="name">ФИО</label>
+        <input type="text" class="form-control" id="name" name="name">
+    </div>
+    <div class="form-group">
+        <label for="username">Логин</label>
+        <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" minlength="4" class="form-control" id="password" name="password">
+    </div>
+    <div class="form-group">
+        <label for="confirmedPassword">Повторите пароль</label>
+        <input type="password" minlength="4" class="form-control" id="confirmedPassword" name="confirmedPassword">
+    </div>
+    <button type="submit" class="btn btn-success">Создать</button>
+</form>
+
+<script type="text/javascript" th:src="@{~/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

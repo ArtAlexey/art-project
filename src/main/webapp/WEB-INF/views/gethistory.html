@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+    <link rel="stylesheet" th:href="@{~/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/static/css/myStyle.css}"/>
+</head>
+<body>
+
+<div th:replace="fragments/menu :: header"></div>
+<h3 align="center">Личная информация <span th:text="${name}"></span></h3>
+<h3 align="center">История операций</h3>
+<form action="/history/getHistories" method="post">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Код исходной валюты</th>
+            <th scope="col">Название исходной валюты</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Код целевой валюты</th>
+            <th scope="col">Название целевой валюты</th>
+            <th scope="col">Результат</th>
+            <th scope="col">Дата</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="history : ${histories}">
+            <td th:text="${history.charCodeIn}"></td>
+            <td th:text="${history.nameIn}"></td>
+            <td th:text="${history.valueIn}"></td>
+            <td th:text="${history.charCodeOut}"></td>
+            <td th:text="${history.nameOut}"></td>
+            <td th:text="${history.valueOut}"></td>
+            <td th:text="${history.dateIn}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/history" class="btn btn-primary btn-lg btn-block">Показать все</a>
+
+<script type="text/javascript" th:src="@{~/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

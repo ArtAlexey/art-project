@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+    <link rel="stylesheet" th:href="@{~/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/static/css/myStyle.css}"/>
+</head>
+<body>
+<div th:replace="fragments/menu :: header"></div>
+<!--<div class="alert alert-danger" role="alert" th:if="${param.deleteError != null}">-->
+<!--    Пользователь не удалён. Что-то пошло не так.-->
+<!--</div>-->
+<form action="/admin/delete" method="post">
+    <h2>Список пользователей</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Имя пользователя</th>
+            <th scope="col">Пароль</th>
+            <th scope="col">Активен</th>
+            <th scope="col">Роли</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="allUsers : ${allUsers}">
+            <td>
+                <input type="checkbox" aria-label="Checkbox for following text input" name="userId" th:value="${allUsers.id}"></td>
+            <td th:text="${allUsers.name}"></td>
+            <td th:text="${allUsers.username}"></td>
+            <td th:text="${allUsers.password}"></td>
+            <td th:text="${allUsers.enabled}"></td>
+            <td th:each="role : ${allUsers.roles}" th:text="${role.name}"></td>
+        </tr>
+        </tbody>
+        <div>
+            <button type="submit" class="btn btn-danger">Удалить пользователя</button>
+        </div>
+    </table>
+</form>
+
+
+
+
+<script type="text/javascript" th:src="@{~/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
+
+<!--<td th:each="role : ${allUsers.roles}"><span th:text="${role.name}"></span>; </td>-->

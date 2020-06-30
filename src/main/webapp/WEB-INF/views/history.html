@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+    <link rel="stylesheet" th:href="@{~/static/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{~/static/css/myStyle.css}"/>
+</head>
+<body>
+<div th:replace="fragments/menu :: header"></div>
+<div class="alert alert-danger" role="alert" th:if="${param.confirmedError != null}">
+    Нужно что-нибудь выбрать!
+</div>
+<h3 align="center">Личная информация <span th:text="${name}"></span></h3>
+<h3 align="center">История операций</h3>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Код исходной валюты</th>
+        <th scope="col">Название исходной валюты</th>
+        <th scope="col">Сумма</th>
+        <th scope="col">Код целевой валюты</th>
+        <th scope="col">Название целевой валюты</th>
+        <th scope="col">Результат</th>
+        <th scope="col">Дата</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="history : ${histories}">
+        <td th:text="${history.charCodeIn}"></td>
+        <td th:text="${history.nameIn}"></td>
+        <td th:text="${history.valueIn}"></td>
+        <td th:text="${history.charCodeOut}"></td>
+        <td th:text="${history.nameOut}"></td>
+        <td th:text="${history.valueOut}"></td>
+        <td th:text="${history.dateIn}"></td>
+    </tr>
+    </tbody>
+</table>
+<form action="/history/getHistories" method="post">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="currencyIn">Исходная валюта</label>
+        </div>
+        <select class="custom-select" id="currencyIn" name="currencyIn">
+            <option value="0">Выберете...</option>
+            <option th:each="historyNameIn : ${historiesNameIn}"
+                    th:value="${historyNameIn}"
+                    th:text="${historyNameIn}"></option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="currencyIn">Целевая валюта</label>
+        </div>
+        <select class="custom-select" id="currencyOut" name="currencyOut">
+            <option value="0">Выберете...</option>
+            <option th:each="historyNameOut : ${historiesNameOut}"
+                    th:value="${historyNameOut}"
+                    th:text="${historyNameOut}"></option>
+        </select>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="valueIn">Дату</span>
+        </div>
+        <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="dateIn">
+    </div>
+
+    <button type="submit" class="btn btn-secondary btn-lg btn-block">Показать</button>
+</form>
+
+
+
+
+<script type="text/javascript" th:src="@{~/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{~/static/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
